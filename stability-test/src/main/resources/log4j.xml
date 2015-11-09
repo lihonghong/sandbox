@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <appender class="com.xiaomi.miliao.logging.DailyRollingBySizeFileAppender" name="main">
+        <param value=".yyyyMMdd" name="DatePattern"/>
+        <param value="${log.home}/${service.name}/${service.name}.log" name="File"/>
+        <param value="${log4j.maxbackupindex}" name="MaxBackupIndex"/>
+        <param value="${log4j.maxfilesize}" name="MaxFileSize"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param value="%d [%t] %-5p %F.%L - %m%n" name="ConversionPattern"/>
+        </layout>
+    </appender>
+    <appender class="org.apache.log4j.ConsoleAppender" name="console">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param value="%d [%t] %-5p %c - %m%n" name="ConversionPattern"/>
+        </layout>
+    </appender>
+
+    <logger name="com.hong" additivity="false">
+        <level value="${log4j.level}"/>
+        <appender-ref ref="main"/>
+    </logger>
+    <root>
+        <level value="${log4j.level}"/>
+        <appender-ref ref="console"/>
+    </root>
+</log4j:configuration>
