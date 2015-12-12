@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="AngularSpringApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Service App</title>
+
+    <link rel="stylesheet" href="bower_components/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="resources/css/app.css"/>
+</head>
+
+<body>
+<p>hi</p>
+<div class="container">
+    <div ng-view></div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="bower_components/bootstrap/js/bootstrap.min.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.min.js"></script>
+
+<!--<script src="js/app.js"></script>-->
+<script src="components/filters/filters.js"></script>
+<script src="views/evaluate/SearchController.js"></script>
+<!--<script src="views/compute/ComputeController.js"></script>-->
+</body>
+</html>
