@@ -5,8 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.xiaomi.miliao.thrift.ClientFactory;
 import com.xiaomi.miliao.zookeeper.EnvironmentType;
 import com.xiaomi.miliao.zookeeper.ZKFacade;
+import com.xiaomi.search.global.thrift.CrawlerSearchRequest;
 import com.xiaomi.search.global.thrift.GlobalCrawlerService;
-import com.xiaomi.search.global.thrift.SearchRequest;
 import org.apache.thrift.TException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,10 +23,9 @@ public class NewsSearchHandler extends SearchHandler {
     ZKFacade.getZKSettings().setEnviromentType(EnvironmentType.LUGU);
     crawlerService = ClientFactory.getClient(GlobalCrawlerService.Iface.class, 1000);
   }
-
   @Override
   protected boolean search(String keywords) throws TException {
-    String news = crawlerService.searchNews(new SearchRequest().setQuery(keywords)).getResult();
+    String news = crawlerService.searchNews(new CrawlerSearchRequest().setQuery(keywords)).getResult();
     if (valid(news)) {
       return true;
     } else {
