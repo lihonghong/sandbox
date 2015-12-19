@@ -28,8 +28,4 @@ public class CompuateController {
         searchService.reset();
     }
 
-//    @RequestMapping("/layout")
-//    public String getSearchPartialPage() {
-//        return "compute/layout";
-//    }
 }

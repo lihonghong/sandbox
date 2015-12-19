@@ -1,14 +1,22 @@
 'use strict';
 
-/**
- * CarController
- * @constructor
- */
-var ComputeController = function ($scope, $http) {
+angular.module('misearch.evaluate.score', [
+    'AngularSpringApp.filters',
+    'ngRoute'
+])
+
+.config(['$routeProvider', function ($routeProvider) {
+    $routeProvider.when('/compute', {
+        templateUrl: 'views/compute/layout.html',
+        controller: 'ComputeController'
+    });
+}])
+
+.controller('ComputeController', function ($scope, $http) {
 
     $scope.fetchComputeScore = function () {
         $http.get('/compute/score').success(function (score) {
-            $scope.query = score;
+            $scope.score = score;
         });
     };
 
@@ -19,4 +27,4 @@ var ComputeController = function ($scope, $http) {
     }
 
     $scope.fetchComputeScore();
-};
+});

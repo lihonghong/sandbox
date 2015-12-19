@@ -40,8 +40,4 @@ public class SearchController {
         searchService.submitChoice(choice);
     }
 
-//    @RequestMapping("/layout")
-//    public String getSearchPartialPage() {
-//        return "evaluate/layout";
-//    }
 }

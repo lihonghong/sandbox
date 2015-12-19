@@ -20,11 +20,11 @@
                         <p class="result-subtitle">{{result.subtitle}}</p>
 
                         <div class="radio" style="text-align:right">
-                            <label class="radio-inline"><input type="radio" ng-click="mark(3,result.id)"
-                                                               name="{{result.id}}" checked>Good</label>
                             <label class="radio-inline"><input type="radio" ng-click="mark(2,result.id)"
-                                                               name="{{result.id}}">Fair</label>
+                                                               name="{{result.id}}" checked>Good</label>
                             <label class="radio-inline"><input type="radio" ng-click="mark(1,result.id)"
+                                                               name="{{result.id}}">Fair</label>
+                            <label class="radio-inline"><input type="radio" ng-click="mark(0,result.id)"
                                                                name="{{result.id}}">Bad</label>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
         <nav>
             <ul class="pager">
                 <li><a ng-click="next()">Next</a></li>
-                <li><a href="/compute/score">Done</a></li>
+                <li><a ng-click="compute()">Done</a></li>
             </ul>
         </nav>
     </div>

@@ -1,57 +1,59 @@
 'use strict';
 
-var app = angular.module('AngularSpringApp', [
+angular.module('misearch.evaluate.search', [
     'AngularSpringApp.filters',
     'ngRoute'
-]);
+])
 
-app.config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/', {
-        templateUrl: 'views/evaluate/layout.html',
-        controller: 'SearchController'
-    });
-    $routeProvider.when('/evaluate', {
-        templateUrl: 'views/evaluate/layout.html',
-        controller: 'SearchController'
-    });
-}]);
+    .config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.when('/', {
+            templateUrl: 'views/evaluate/layout.html',
+            controller: 'SearchController'
+        });
+    }])
 
-app.controller('SearchController', function ($scope, $http) {
-    var marks = {};
+    .controller('SearchController', function ($scope, $http) {
+        var marks = {};
 
-    $scope.fetchSearchResults = function () {
-        $http.get('evaluate/query').success(function (query) {
-            if (query.query == null) {
-                window.location.href = "/compute/score";
-            }
+        $scope.fetchSearchResults = function () {
+            $http.get('evaluate/query').success(function (query) {
+                if (query.query == null) {
+                    window.location.href = "#/compute";
+                }
 
-            $http.get('evaluate/next/' + query.query).success(function (searchResults) {
-                $scope.results = searchResults;
-                $scope.query = query;
+                $http.get('evaluate/next/' + query.query).success(function (searchResults) {
+                    $scope.results = searchResults;
+                    $scope.query = query;
+                });
             });
-        });
-    };
+        };
 
-    $scope.choice = function () {
-        $http.post('evaluate/submit/' + JSON.stringify(marks)).success(function () {
-        });
-    }
+        $scope.choice = function () {
+            marks['query'] = $scope.query.query;
+            $http.post('evaluate/submit/' + JSON.stringify(marks)).success(function () {
+            });
+        }
 
-    $scope.mark = function (isGood, id) {
-        marks[id] = isGood;
-        console.log(marks);
-    };
+        $scope.mark = function (isGood, id) {
+            marks[id] = isGood;
+            console.log(marks);
+        };
 
-    $scope.next = function () {
-        marks['query'] = $scope.query.query;
-        $scope.choice();
+        $scope.next = function () {
+            $scope.choice();
+            $scope.fetchSearchResults();
+            marks = {};
+        };
+
+        $scope.compute = function () {
+            $scope.choice();
+            marks = {};
+            window.location.href = "#/compute";
+        };
+
         $scope.fetchSearchResults();
-        marks = {};
-    };
 
-    $scope.fetchSearchResults();
-
-});
+    });
 
 
 

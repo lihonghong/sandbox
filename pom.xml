@@ -11,6 +11,7 @@
     <name>java code project</name>
     <modules>
         <module>stability-test</module>
+        <module>search-evaluate</module>
     </modules>
 
     <properties>
