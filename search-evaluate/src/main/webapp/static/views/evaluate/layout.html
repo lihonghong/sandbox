@@ -20,8 +20,12 @@
                         <p class="result-subtitle">{{result.subtitle}}</p>
 
                         <div class="radio" style="text-align:right">
+                            <label class="radio-inline"><input type="radio" ng-click="mark(4,result.id)"
+                                                               name="{{result.id}}" checked>Perfect</label>
+                            <label class="radio-inline"><input type="radio" ng-click="mark(3,result.id)"
+                                                               name="{{result.id}}">Excellent</label>
                             <label class="radio-inline"><input type="radio" ng-click="mark(2,result.id)"
-                                                               name="{{result.id}}" checked>Good</label>
+                                                               name="{{result.id}}">Good</label>
                             <label class="radio-inline"><input type="radio" ng-click="mark(1,result.id)"
                                                                name="{{result.id}}">Fair</label>
                             <label class="radio-inline"><input type="radio" ng-click="mark(0,result.id)"

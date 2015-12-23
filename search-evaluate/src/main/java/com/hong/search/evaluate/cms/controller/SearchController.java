@@ -1,6 +1,5 @@
 package com.hong.search.evaluate.cms.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.hong.search.evaluate.cms.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +25,12 @@ public class SearchController {
     @ResponseBody
     public Object getSearchQuery() {
         return searchService.getQuery();
+    }
+
+    @RequestMapping(value = "/query/news", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public Object getNewsQuery() {
+        return searchService.getNewsQuery();
     }
 
     @RequestMapping(value = "/next/{query}", method = RequestMethod.GET, produces = "application/json")

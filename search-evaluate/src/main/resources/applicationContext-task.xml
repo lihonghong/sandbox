@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd"
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"
        default-lazy-init="false">
+
+    <task:scheduler id="searchScheduler" pool-size="2"/>
+
+    <task:scheduled-tasks scheduler="searchScheduler">
+        <task:scheduled ref="checkSearchFiller" method="fill" fixed-delay="200" initial-delay="1000"/>
+    </task:scheduled-tasks>
 
     <bean name="newsHotQueryFiller" class="com.hong.search.evaluate.cms.filler.HotQueryFiller">
     </bean>
     <bean name="localQueryFiller" class="com.hong.search.evaluate.cms.filler.LocalQueryFiller">
     </bean>
     <bean name="globalSearchResultFiller" class="com.hong.search.evaluate.cms.filler.GlobalSearchResultFiller">
+    </bean>
+    <bean name="checkSearchFiller" class="com.hong.search.evaluate.cms.filler.CheckSearchFiller">
     </bean>
 </beans>

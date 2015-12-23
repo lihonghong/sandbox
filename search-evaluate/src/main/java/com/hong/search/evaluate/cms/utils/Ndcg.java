@@ -2,6 +2,8 @@ package com.hong.search.evaluate.cms.utils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -9,18 +11,27 @@ import java.util.*;
  * Created by hong on 15-12-19.
  */
 public class Ndcg {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Ndcg.class);
     private double score = 0;
-    private int defaultLevel = 2;
+    private int defaultLevel = 4;
 
     public double score(Map<String, JSONObject> choice, Map<String, JSONArray> data) {
         for (Map.Entry entry : data.entrySet()) {
             String query = (String) entry.getKey();
             JSONArray searchResult = (JSONArray) entry.getValue();
             JSONObject choiceResult = choice.get(query);
-            score += compute(searchResult, choiceResult);
+            try {
+                double ndcgScore = compute(searchResult, choiceResult);
+                score += ndcgScore;
+            } catch (Exception e) {
+                LOGGER.error("maybe search fail", e);
+            }
         }
 
-        return score / data.size();
+        if (data.size() > 0) {
+            score /= data.size();
+        }
+        return score;
     }
 
     private double compute(JSONArray searchResult, JSONObject choiceResult) {
@@ -54,10 +65,12 @@ public class Ndcg {
             for (int k = 0; k < items.size(); k++) {
                 JSONObject item = items.getJSONObject(k);
                 JSONArray dataArray = item.getJSONArray("data");
-                if (dataArray.size() > 0) {
-                    String id = dataArray.getJSONObject(0).getString("id");
+                for (int z = 0; z < dataArray.size(); z++) {
+                    JSONObject detail = dataArray.getJSONObject(z);
+                    String id = detail.getString("id");
                     docIdList.add(id);
                 }
+
             }
         }
 
