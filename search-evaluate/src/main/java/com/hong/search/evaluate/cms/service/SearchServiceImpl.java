@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hong.search.evaluate.cms.filler.GlobalSearchResultFiller;
-import com.hong.search.evaluate.cms.filler.HotQueryFiller;
+import com.hong.search.evaluate.cms.filler.NewsHotQueryFiller;
 import com.hong.search.evaluate.cms.filler.LocalQueryFiller;
 import com.hong.search.evaluate.cms.utils.Ndcg;
 import org.slf4j.Logger;
@@ -25,7 +25,7 @@ public class SearchServiceImpl implements SearchService {
     @Autowired
     private GlobalSearchResultFiller globalSearchResultFiller;
     @Autowired
-    private HotQueryFiller hotQueryFiller;
+    private NewsHotQueryFiller newsHotQueryFiller;
 
     private List<String> list = null;
     private Map<String, JSONArray> dataMap = new HashMap<>();
@@ -78,26 +78,39 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public JSONArray getNewsQuery() {
         JSONArray jsonArray = new JSONArray();
-        List<String> list = hotQueryFiller.fillImpl();
-        list.add("？？？？？？？");
+        List<String> list = newsHotQueryFiller.fillImpl();
         for (String query : list) {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("query", query);
-            boolean status = assertSearchResult(query);
+            boolean status = assertSearchResult(query, "news");
             jsonObject.put("status", status);
             jsonArray.add(jsonObject);
         }
         return jsonArray;
     }
 
-    public boolean assertSearchResult(String query) {
+    @Override
+    public JSONArray getHotQuery() {
+        JSONArray jsonArray = new JSONArray();
+        List<String> list = newsHotQueryFiller.fillImpl();
+        for (String query : list) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("query", query);
+            boolean status = assertSearchResult(query, "news");
+            jsonObject.put("status", status);
+            jsonArray.add(jsonObject);
+        }
+        return jsonArray;
+    }
+
+    public boolean assertSearchResult(String query, String filterType) {
         JSONArray result = globalSearchResultFiller.fillImpl(query);
         try {
             for (int i = 0; i < result.size(); i++) {
                 JSONObject group = result.getJSONObject(i);
                 JSONArray items = group.getJSONArray("items");
                 String type = group.getString("type");
-                if (!type.equals("news")) {
+                if (type != null && !type.equals(filterType)) {
                     continue;
                 }
                 for (int k = 0; k < items.size(); k++) {

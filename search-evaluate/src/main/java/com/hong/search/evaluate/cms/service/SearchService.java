@@ -10,6 +10,8 @@ public interface SearchService {
 
     public JSONArray getNewsQuery();
 
+    public JSONArray getHotQuery();
+
     public JSONArray next(String query);
 
     public JSONObject getScore();

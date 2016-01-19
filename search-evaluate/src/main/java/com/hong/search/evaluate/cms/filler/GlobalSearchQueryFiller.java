@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
  */
 public class GlobalSearchQueryFiller implements Query {
     private static final Logger LOGGER = LoggerFactory.getLogger(GlobalSearchQueryFiller.class);
-    private static final String FILE_FORMAT = "hdfs://lgprc-xiaomi/user/h_sns/music_recommend/raw_data/miui_log/quicksearchbox/QueryOutput/part-r-00000";
+    private static final String FILE_FORMAT = "hdfs://lgprc-xiaomi/user/h_sns/global_search/log_analysis/zixun_yidian/part-r-00000";
 
     @Override
     public List<String> fillImpl() {
@@ -40,8 +40,8 @@ public class GlobalSearchQueryFiller implements Query {
         GlobalSearchQueryFiller globalSearchResultFiller = new GlobalSearchQueryFiller();
         List<String> data = globalSearchResultFiller.fillImpl();
         System.out.println(data.size());
-        List<String> result = filter(data);
-        for (String query : result) {
+ //       List<String> result = filter(data);
+        for (String query : data) {
             System.out.println(query);
         }
 

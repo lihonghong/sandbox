@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by hong on 11/26/15.
  */
-public class HotQueryFiller implements Query {
+public class NewsHotQueryFiller implements Query {
     private static final String URL = "http://o.go2yd.com/oapi/xiaomi/hot_words";
     private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
     static final JsonFactory JSON_FACTORY = new JacksonFactory();

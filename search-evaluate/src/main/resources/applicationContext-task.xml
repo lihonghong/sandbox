@@ -8,10 +8,10 @@
     <task:scheduler id="searchScheduler" pool-size="2"/>
 
     <task:scheduled-tasks scheduler="searchScheduler">
-        <task:scheduled ref="checkSearchFiller" method="fill" fixed-delay="200" initial-delay="1000"/>
+        <task:scheduled ref="checkSearchFiller" method="fill" fixed-delay="36000000" initial-delay="1000"/>
     </task:scheduled-tasks>
 
-    <bean name="newsHotQueryFiller" class="com.hong.search.evaluate.cms.filler.HotQueryFiller">
+    <bean name="newsHotQueryFiller" class="com.hong.search.evaluate.cms.filler.NewsHotQueryFiller">
     </bean>
     <bean name="localQueryFiller" class="com.hong.search.evaluate.cms.filler.LocalQueryFiller">
     </bean>
