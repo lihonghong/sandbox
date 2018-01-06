@@ -10,10 +10,10 @@ import org.slf4j.LoggerFactory;
  * Created by hong on 10/9/15.
  */
 public class LogTest {
-    private static final Logger LOGGER = LoggerFactory.getLogger(LogTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(LogTest.class);
 
-    @Test
-    public void test() {
-        LOGGER.debug("aa", 11);
-    }
+  @Test
+  public void test() {
+    LOGGER.debug("hello world");
+  }
 }
